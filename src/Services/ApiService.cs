@@ -9,14 +9,14 @@ namespace DesignPatternChallenge.Services
 
         public ApiService()
         {
-            // Utilizando a instância única
+            // Using the singleton instance
             _config = ConfigurationManager.Instance;
         }
 
         public void MakeRequest()
         {
             var apiKey = _config.GetSetting("ApiKey");
-            Console.WriteLine($"[ApiService] Fazendo requisição com API Key: {apiKey}");
+            Console.WriteLine($"[ApiService] Making request with API Key: {apiKey}");
         }
     }
 }

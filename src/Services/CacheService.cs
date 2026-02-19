@@ -9,14 +9,14 @@ namespace DesignPatternChallenge.Services
 
         public CacheService()
         {
-            // Utilizando a instância única
+            // Using the singleton instance
             _config = ConfigurationManager.Instance;
         }
 
         public void Connect()
         {
             var cacheServer = _config.GetSetting("CacheServer");
-            Console.WriteLine($"[CacheService] Conectando ao cache: {cacheServer}");
+            Console.WriteLine($"[CacheService] Connecting to cache: {cacheServer}");
         }
     }
 }

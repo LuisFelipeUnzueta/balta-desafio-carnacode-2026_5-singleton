@@ -8,31 +8,31 @@ namespace DesignPatternChallenge
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("=== Sistema de Configurações (Singleton Pattern) ===\n");
+            Console.WriteLine("=== Configuration System (Singleton Pattern) ===\n");
 
-            // O carregamento inicial pode ser feito explicitamente ou no primeiro acesso
-            Console.WriteLine("Acessando a instância pela primeira vez (lazy loading)...");
+            // Initial loading can be done explicitly or on first access
+            Console.WriteLine("Accessing the instance for the first time (lazy loading)...");
             ConfigurationManager.Instance.LoadConfigurations();
 
-            Console.WriteLine("Inicializando serviços...\n");
+            Console.WriteLine("Initializing services...\n");
 
-            // Os serviços agora utilizam a mesma instância internamente
+            // Services now use the same instance internally
             var dbService = new DatabaseService();
             var apiService = new ApiService();
             var cacheService = new CacheService();
             var logService = new LoggingService();
 
-            Console.WriteLine("\nUsando os serviços...\n");
+            Console.WriteLine("\nUsing the services...\n");
 
             dbService.Connect();
             apiService.MakeRequest();
             cacheService.Connect();
-            logService.Log("Sistema iniciado");
+            logService.Log("System started");
 
-            // Verificação de consistência
-            Console.WriteLine("\n--- Verificação de Consistência ---\n");
+            // Consistency verification
+            Console.WriteLine("\n--- Consistency Verification ---\n");
 
-            // Tentativa de alterar configuração via uma referência obtida separadamente
+            // Attempting to change configuration via a separately obtained reference
             var configRef1 = ConfigurationManager.Instance;
             configRef1.UpdateSetting("LogLevel", "Debug");
 
@@ -43,16 +43,16 @@ namespace DesignPatternChallenge
 
             if (Object.ReferenceEquals(configRef1, configRef2))
             {
-                Console.WriteLine("✅ Sucesso: As referências apontam para a mesma instância!");
+                Console.WriteLine("✅ Success: The references point to the same instance!");
             }
             else
             {
-                Console.WriteLine("❌ Erro: Instâncias diferentes detectadas!");
+                Console.WriteLine("❌ Error: Different instances detected!");
             }
 
-            Console.WriteLine("\n--- Impacto de Performance ---");
-            Console.WriteLine("A configuração foi carregada apenas uma vez.");
-            Console.WriteLine("Memória e processamento otimizados!");
+            Console.WriteLine("\n--- Performance Impact ---");
+            Console.WriteLine("The configuration was loaded only once.");
+            Console.WriteLine("Memory and processing optimized!");
         }
     }
 }

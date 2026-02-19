@@ -9,14 +9,14 @@ namespace DesignPatternChallenge.Services
 
         public DatabaseService()
         {
-            // O serviço não cria mais uma nova instância, e sim utiliza a instância única existentes
+            // The service no longer creates a new instance, instead it uses the existing singleton instance
             _config = ConfigurationManager.Instance;
         }
 
         public void Connect()
         {
             var connectionString = _config.GetSetting("DatabaseConnection");
-            Console.WriteLine($"[DatabaseService] Conectando ao banco: {connectionString}");
+            Console.WriteLine($"[DatabaseService] Connecting to database: {connectionString}");
         }
     }
 }

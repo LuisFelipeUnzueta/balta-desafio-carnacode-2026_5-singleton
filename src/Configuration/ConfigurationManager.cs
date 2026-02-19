@@ -6,16 +6,16 @@ namespace DesignPatternChallenge.Configuration
     public sealed class ConfigurationManager
     {
         private static readonly Lazy<ConfigurationManager> _instance =
-            new Lazy<ConfigurationManager>(() => new ConfigurationManager());
+            new(() => new ConfigurationManager());
 
-        private Dictionary<string, string> _settings;
+        private readonly Dictionary<string, string> _settings;
         private bool _isLoaded;
 
         private ConfigurationManager()
         {
-            _settings = new Dictionary<string, string>();
+            _settings = [];
             _isLoaded = false;
-            Console.WriteLine("⚠️ Nova instância de ConfigurationManager criada!");
+            Console.WriteLine("⚠️ New instance of ConfigurationManager created!");
         }
 
         public static ConfigurationManager Instance => _instance.Value;
@@ -24,11 +24,11 @@ namespace DesignPatternChallenge.Configuration
         {
             if (_isLoaded)
             {
-                Console.WriteLine("Configurações já carregadas.");
+                Console.WriteLine("Configurations already loaded.");
                 return;
             }
 
-            Console.WriteLine("🔄 Carregando configurações...");
+            Console.WriteLine("🔄 Loading configurations...");
 
             System.Threading.Thread.Sleep(200);
 
@@ -41,24 +41,21 @@ namespace DesignPatternChallenge.Configuration
             _settings["LogLevel"] = "Information";
 
             _isLoaded = true;
-            Console.WriteLine("✅ Configurações carregadas com sucesso!\n");
+            Console.WriteLine("✅ Configurations loaded successfully!\n");
         }
 
-        public string GetSetting(string key)
+        public string? GetSetting(string key)
         {
             if (!_isLoaded)
                 LoadConfigurations();
 
-            if (_settings.ContainsKey(key))
-                return _settings[key];
-
-            return null;
+            return _settings.TryGetValue(key, out var value) ? value : null;
         }
 
         public void UpdateSetting(string key, string value)
         {
             _settings[key] = value;
-            Console.WriteLine($"Configuração atualizada: {key} = {value}");
+            Console.WriteLine($"Configuration updated: {key} = {value}");
         }
     }
 }
